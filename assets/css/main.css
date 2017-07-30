@@ -1,0 +1,83 @@
+body {
+	padding-top: 0;
+}
+.navbar-default {
+ 	background-color: #344892;
+ 	border-color: #344892;
+ }
+ .navbar-default .nav li a:hover {
+ 	background-color: darkblue;
+ }
+.navbar a {
+	text-decoration: none;
+}
+.navbar h2 {
+	color: #ffffff;
+}
+.navbar h2 span,
+.navbar h5 span {
+	color: #262626;
+}
+.navbar h5 {
+	color: #ffffff;
+	text-align: left;
+}
+.navbar h5 span.emp {
+	text-decoration: underline;
+	font-weight: bold;
+	color: #ffffff;
+}
+.navbar-static-top .navbar-collapse {
+	padding-top: 20px;
+}
+.footer {
+	position: absolute;
+	top: 80%;
+	width: 100%;
+}
+.footer img {
+	margin-right: 4%;
+	margin-left: 4%;
+}
+.footer p {
+	font-size: 1em;
+	margin: 0px;
+}
+.about {
+	text-align: justify;
+}
+.about span {
+	color: #262626;
+}
+.logo {
+	color: #262626;
+}
+.logo span {
+	color: #ea2f10;
+}
+.margin-top {
+	margin-top: 25px;
+}
+.margin-top h3 {
+	display:block;
+	color:#ea2f10;
+}
+.margin-top i {
+	padding-right:5px;
+	font-size:0.75em;
+}
+.links {
+	display: inline-grid;
+	border: 2px solid black;
+    font-weight: bold;
+}
+.links:nth-child(2) {
+	width: 25%;
+	padding: 40px 20px;
+}
+.links:nth-child(4) {
+	width: 20%;
+	padding: 15px 20px;
+	position: relative;
+    bottom: 25px;
+}
