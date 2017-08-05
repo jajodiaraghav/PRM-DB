@@ -32,7 +32,7 @@ body {
 }
 .footer {
 	position: absolute;
-	top: 80%;
+	top: 90%;
 	width: 100%;
 }
 .footer img {
@@ -73,11 +73,42 @@ body {
 }
 .links:nth-child(2) {
 	width: 25%;
-	padding: 40px 20px;
+	padding: 10px 20px;
+	position: relative;
+    bottom: 25px;
 }
 .links:nth-child(4) {
 	width: 20%;
 	padding: 15px 20px;
 	position: relative;
     bottom: 25px;
+}
+.form-inline .form-control {
+	height: 48px;
+    padding: 10px 16px;
+    font-size: 19px;
+    line-height: 1.33;
+}
+.form-inline input {
+	width: 70% !important;
+}
+.example{
+	cursor: pointer;
+}
+.jumbotron {
+	margin-bottom: 20px;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border: 1px solid gray;
+}
+.jumbotron .inline {
+	display: inline-flex;
+}
+.jumbotron .list-unstyled {
+	padding-left: 130px;
+}
+.seq {
+	font-size: x-small;
+	word-break: break-all;
 }
