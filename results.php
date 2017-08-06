@@ -7,19 +7,31 @@ include_once('partials/header.php');
     		<div class="col-md-10 col-md-offset-1">
     			<strong>Summary</strong>
 	    		<div class="jumbotron">
-	    			<h5>Search Terms: </h5>
+	    		<?php
+		        	$empty = True;
+		        	$q = $_GET['q'];
+		        	$sp = $_GET['species'];
+					$s = isset($_GET['s']) ? mysqli_real_escape_string($_GET['s']) : 0;
+
+					$query = "SELECT * FROM proteins WHERE `Protein_Name` LIKE ? AND `Species`=? LIMIT ".$s.", 10";
+					$stmt = $dbh->prepare($query);
+					$param = array("%$q%", "$sp");
+					$stmt->execute($param);
+					$cnt = $stmt->rowCount();
+				?>
+	    			<h5>Search Terms: <?=$q?></h5>
 		    		<div class="inline">		    			
 		    			<ul class="list-unstyled">
-							<li><h5>Proteins Found: </h5></li>
-							<li><h5>Domains Found: </h5></li>
+							<li><h5>Proteins Found: <?=$cnt?></h5></li>
+							<li><h5>Domains Found: <?=$cnt?></h5></li>
 						</ul>
 						<ul class="list-unstyled">
-							<li><h5>HAL Found: </h5></li>
-							<li><h5>NGS Peptides Found: </h5></li>
+							<li><h5>HAL Found: <?=$cnt?></h5></li>
+							<li><h5>NGS Peptides Found: <?=$cnt?></h5></li>
 						</ul>
 						<ul class="list-unstyled">
-							<li><h5>3D Structures Found: </h5></li>
-							<li><h5>PWM Found: </h5></li>
+							<li><h5>3D Structures Found: <?=$cnt?></h5></li>
+							<li><h5>PWM Found: <?=$cnt?></h5></li>
 						</ul>
 					</div>
 	    		</div>
@@ -30,15 +42,6 @@ include_once('partials/header.php');
 	        	<strong>Search Results</strong>
 	        	<div class="list-group">
 		        	<?php
-		        	$empty = True;
-		        	$q = $_GET['q'];
-		        	$sp = $_GET['species'];
-					$s = isset($_GET['s']) ? mysqli_real_escape_string($_GET['s']) : 0;
-
-					$query = "SELECT * FROM proteins WHERE `Protein_Name` LIKE ? AND `Species`=? LIMIT ".$s.", 10";
-					$stmt = $dbh->prepare($query);
-					$param = array("%$q%", "$sp");
-					$stmt->execute($param);
 					while ($row = $stmt->fetch()) {
 						$empty = False;
 		        	?>
@@ -50,7 +53,7 @@ include_once('partials/header.php');
 			          			<a href="<?=$row['Protein_Name']?>_SEQ.fa">Top NGS Peptides</a>
 			          			<span class="seq"><?=$row['NGS']?></span>
 			          		</span>
-			          		<img src="files/<?=$row['Protein_Name']?>_Logo.png" alt="<?=$row['Protein_Name']?>" width="20%">
+			          		<img src="files/3D/<?=$row['Protein_Name']?>.PNG" alt="<?=$row['Protein_Name']?>" width="20%">
 			          		<span class="links">
 			          			<strong>Downloads</strong>
 			          			<a href="#">Binders</a>
@@ -71,7 +74,7 @@ include_once('partials/header.php');
 	        	<nav aria-label="...">
 					<ul class="pager">
 				    	<li><a href="#">Previous</a></li>
-				    	<span>Page X of Y</span>
+				    	<span>Page 1 of 1</span>
 				    	<li><a href="#">Next</a></li>
 					</ul>
 				</nav>

@@ -18,6 +18,9 @@ body {
 .navbar h5 span {
 	color: #262626;
 }
+.search {
+	height: 50%;
+}
 .navbar h5 {
 	color: #ffffff;
 	text-align: left;
@@ -31,8 +34,8 @@ body {
 	padding-top: 20px;
 }
 .footer {
-	position: absolute;
-	top: 90%;
+	position: relative;
+	top: 10%;
 	width: 100%;
 }
 .footer img {

@@ -3,9 +3,9 @@ include_once('common.php');
 include_once('partials/header.php');
 ?>
     <div class="container">
-    	<div class="row">
+    	<div class="row search">
         <div class="col-md-8 col-md-offset-2">
-          <form action="/results" method="get" class="form-inline">
+          <form action="results.php" method="get" class="form-inline">
             <input type="search" name="q" class="form-control" placeholder="Enter Domain or Protein name or ID">
             <select class="form-control" name="species" required>
               <option value="" selected disabled>Species</option>
