@@ -48,12 +48,18 @@ include_once('partials/header.php');
 			          	<div class="list-group-item">
 			          		<img src="files/<?=$row['Protein_Name']?>_Logo.png" alt="<?=$row['Protein_Name']?>" width="30%">
 			          		<span class="links">
-			          			<a href="<?=$row['Protein_Name']?>_ELISA.txt">HAL (ELISA Peptides)</a>
+			          			<?php if(is_file("files/{$row['Protein_Name']}_ELISA.txt")) { ?>
+			          			<a href="files/<?=$row['Protein_Name']?>_ELISA.txt">HAL (ELISA Peptides)</a>
 			          			<span class="seq"><?=$row['HAL']?></span>
-			          			<a href="<?=$row['Protein_Name']?>_SEQ.fa">Top NGS Peptides</a>
+			          			<?php } ?>
+			          			<?php if(is_file("files/{$row['Protein_Name']}_SEQ.fa")) { ?>
+			          			<a href="files/<?=$row['Protein_Name']?>_SEQ.fa">Top NGS Peptides</a>
 			          			<span class="seq"><?=$row['NGS']?></span>
+			          			<?php } ?>
 			          		</span>
-			          		<img src="files/3D/<?=$row['Protein_Name']?>.PNG" alt="<?=$row['Protein_Name']?>" width="20%">
+			          		<a href="https://www.rcsb.org/pdb/protein/<?=$row['Protein_Name']?>">
+			          			<img src="files/3D/<?=$row['Protein_Name']?>.PNG" width="20%">
+			          		</a>
 			          		<span class="links">
 			          			<strong>Downloads</strong>
 			          			<a href="#">Binders</a>
