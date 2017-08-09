@@ -1,6 +1,9 @@
 body {
 	padding-top: 0;
 }
+.text-uppercase {
+	text-transform: uppercase;
+}
 .navbar-default {
  	background-color: #344892;
  	border-color: #344892;
@@ -58,33 +61,10 @@ body {
 .logo span {
 	color: #ea2f10;
 }
-.margin-top {
-	margin-top: 25px;
-}
-.margin-top h3 {
-	display:block;
-	color:#ea2f10;
-}
-.margin-top i {
-	padding-right:5px;
-	font-size:0.75em;
-}
 .links {
 	display: inline-grid;
-	border: 2px solid black;
+	border: 1px solid lightgray;
     font-weight: bold;
-}
-.links:nth-child(2) {
-	width: 25%;
-	padding: 10px 20px;
-	position: relative;
-    bottom: 25px;
-}
-.links:nth-child(4) {
-	width: 20%;
-	padding: 15px 20px;
-	position: relative;
-    bottom: 25px;
 }
 .form-inline .form-control {
 	height: 48px;
@@ -114,4 +94,31 @@ body {
 .seq {
 	font-size: x-small;
 	word-break: break-all;
+}
+.list-group-item {
+	height: 210px !important;
+	margin-bottom: 30px;
+	border: 2px solid lightgray;
+}
+.list-group-item-heading {
+	padding: 5px 0 5px 0;
+	text-align: center;
+}
+.list-group-item .pwm {
+	width: 29%;
+	height: 150px;
+}
+.list-group-item .top-peptides {
+	width: 20%;
+	padding: 15px 20px;
+	position: relative;
+    bottom: 50px;
+    height: 150px;
+}
+.list-group-item .downloads {
+	width: 20%;
+	padding: 22px 20px 26px;
+	position: relative;
+    bottom: 40px;
+	font-size: 14px;
 }

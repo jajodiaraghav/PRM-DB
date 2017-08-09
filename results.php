@@ -5,7 +5,7 @@ include_once('partials/header.php');
     <div class="container">
     	<div class="row">
     		<div class="col-md-10 col-md-offset-1">
-    			<strong>Summary</strong>
+    			<h4><strong>Summary</strong></h4><hr>
 	    		<div class="jumbotron">
 	    		<?php
 		        	$empty = True;
@@ -13,13 +13,15 @@ include_once('partials/header.php');
 		        	$sp = $_GET['species'];
 					$s = isset($_GET['s']) ? mysqli_real_escape_string($_GET['s']) : 0;
 
-					$query = "SELECT * FROM proteins WHERE `Protein_Name` LIKE ? AND `Species`=? LIMIT ".$s.", 10";
+					$query = "SELECT * FROM proteins WHERE
+							(`Protein_Name` LIKE ? OR `Domain_Group` LIKE ? OR `Uniprot_ID` LIKE ?)
+							AND `Species`=? LIMIT ".$s.", 10";
 					$stmt = $dbh->prepare($query);
-					$param = array("%$q%", "$sp");
+					$param = array("%$q%", "%$q%", "%$q%", "$sp");
 					$stmt->execute($param);
 					$cnt = $stmt->rowCount();
 				?>
-	    			<h5>Search Terms: <?=$q?></h5>
+	    			<h5>Search Terms: <span class="text-uppercase"><?=$q?></span></h5>
 		    		<div class="inline">		    			
 		    			<ul class="list-unstyled">
 							<li><h5>Proteins Found: <?=$cnt?></h5></li>
@@ -39,15 +41,20 @@ include_once('partials/header.php');
     	</div>
     	<div class="row">    		
 	        <div class="col-md-10 col-md-offset-1">
-	        	<strong>Search Results</strong>
+	        	<h4><strong>Search Results</strong></h4><hr>
 	        	<div class="list-group">
 		        	<?php
 					while ($row = $stmt->fetch()) {
 						$empty = False;
 		        	?>
 			          	<div class="list-group-item">
-			          		<img src="files/<?=$row['Protein_Name']?>_Logo.png" alt="<?=$row['Protein_Name']?>" width="30%">
-			          		<span class="links">
+			          		<h5 class="list-group-item-heading">
+			          			<strong>Protein Name: </strong><?=$row['Protein_Name']?> | 
+			          			<strong>Domain Group: </strong><?=$row['Domain_Group']?> | 
+			          			<strong>Uniprodt ID: </strong><?=$row['Uniprot_ID']?>
+			          		</h5>    
+			          		<img src="files/<?=$row['Protein_Name']?>_Logo.png" class="img-thumbnail pwm">
+			          		<span class="links top-peptides">
 			          			<?php if(is_file("files/{$row['Protein_Name']}_ELISA.txt")) { ?>
 			          			<a href="files/<?=$row['Protein_Name']?>_ELISA.txt">HAL (ELISA Peptides)</a>
 			          			<span class="seq"><?=$row['HAL']?></span>
@@ -58,9 +65,9 @@ include_once('partials/header.php');
 			          			<?php } ?>
 			          		</span>
 			          		<a href="https://www.rcsb.org/pdb/protein/<?=$row['Protein_Name']?>">
-			          			<img src="files/3D/<?=$row['Protein_Name']?>.PNG" width="20%">
+			          			<img src="files/3D/<?=$row['Protein_Name']?>.PNG" class="img-thumbnail pwm">
 			          		</a>
-			          		<span class="links">
+			          		<span class="links downloads">
 			          			<strong>Downloads</strong>
 			          			<a href="#">Binders</a>
 			          			<a href="#">PWM</a>
