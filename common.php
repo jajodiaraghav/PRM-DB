@@ -13,5 +13,5 @@ require('partials/PDOext.class.php');
 
 // Database Connection
 $pass = 'mysql:host=' . $settings['db_host'] . ';dbname=' . $settings['db_name'];
-$dbh = new PDOext($pass, $settings['db_user'], $settings['db_password']);
+$dbh = new PDOext($pass, $settings['db_user'], $settings['db_password'],[PDO::MYSQL_ATTR_LOCAL_INFILE => true]);
 $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);

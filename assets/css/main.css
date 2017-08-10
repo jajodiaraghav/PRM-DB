@@ -122,3 +122,65 @@ body {
     bottom: 40px;
 	font-size: 14px;
 }
+
+/* Admin Panel */
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
+}
+@media screen\9 { /* Fixes for IE < 8 */
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+.table p {
+  font-size: 12px;
+  font-weight: 500;
+}
+.row-files {
+  margin-bottom: 200px;
+}
+.row-files .table thead th,
+.row-files .table tbody tr td {
+  text-align: center;
+  vertical-align: middle;
+}
+.table .template-upload td,
+.table .template-download td {
+  vertical-align: middle;
+}
+.fileupload-progress .progress {
+  margin: 20px;
+  border-radius: 5px;
+}
+.fileupload-progress .progress .progress-bar {
+  border-radius: 5px;
+}
+.template-upload .progress,
+.template-upload .progress .progress-bar {
+  border-radius: 5px;
+  height: initial;
+}
+.template-upload .progress,
+.template-upload td p {
+  margin-bottom: 10px;
+}
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle !important;
+}
