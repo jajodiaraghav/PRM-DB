@@ -72,8 +72,11 @@ body {
     font-size: 19px;
     line-height: 1.33;
 }
+.form-inline .btn {
+	padding: 12px 20px;
+}
 .form-inline input {
-	width: 70% !important;
+	width: 50% !important;
 }
 .example{
 	cursor: pointer;

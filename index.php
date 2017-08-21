@@ -26,10 +26,21 @@ include_once('partials/header.php');
 	        <div class="col-md-8 col-md-offset-2">
 	          <form action="results.php" method="get" class="form-inline">
 	            <input type="search" name="q" class="form-control" placeholder="Enter Domain or Protein name or ID">
-	            <select class="form-control" name="species" required>
+	            <select class="form-control" name="species">
 	              <option value="" selected disabled>Species</option>
 	              <?php
 	              $query = "SELECT DISTINCT Species FROM proteins";
+	              $stmt = $dbh->prepare($query);
+	              $stmt->execute();
+	              while ($row = $stmt->fetch()) {
+	                echo "<option value='{$row[0]}'>{$row[0]}</option>";
+	              }
+	              ?>
+	            </select>
+	            <select class="form-control" name="group">
+	              <option value="" selected disabled>Domain Group</option>
+	              <?php
+	              $query = "SELECT DISTINCT Domain_Group FROM proteins";
 	              $stmt = $dbh->prepare($query);
 	              $stmt->execute();
 	              while ($row = $stmt->fetch()) {
