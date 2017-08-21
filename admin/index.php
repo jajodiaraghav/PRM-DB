@@ -132,12 +132,12 @@ if ($failure)
 {% } %}
 </script>
   
-  <script src="/assets/js/jquery.ui.widget.js"></script>
-  <script src="/assets/js/tmpl.min.js"></script>
-  <script src="/assets/js/jquery.iframe-transport.js"></script>
-  <script src="/assets/js/jquery.fileupload.js"></script>
-  <script src="/assets/js/jquery.fileupload-process.js"></script>
-  <script src="/assets/js/jquery.fileupload-ui.js"></script>
+  <script src="/prmhal/assets/js/jquery.ui.widget.js"></script>
+  <script src="/prmhal/assets/js/tmpl.min.js"></script>
+  <script src="/prmhal/assets/js/jquery.iframe-transport.js"></script>
+  <script src="/prmhal/assets/js/jquery.fileupload.js"></script>
+  <script src="/prmhal/assets/js/jquery.fileupload-process.js"></script>
+  <script src="/prmhal/assets/js/jquery.fileupload-ui.js"></script>
   <script>
   $(function(){
     $('#fileupload').fileupload();

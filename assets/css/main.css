@@ -110,10 +110,10 @@ body {
 }
 .list-group-item .top-peptides {
 	width: 20%;
-	padding: 15px 20px;
-	position: relative;
-    bottom: 50px;
+	padding: 15px 20px;	
     height: 150px;
+    position: relative;
+    bottom: 50px;
 }
 .list-group-item .downloads {
 	width: 20%;

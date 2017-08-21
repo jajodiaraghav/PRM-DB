@@ -16,12 +16,12 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == 'admin')
     move_uploaded_file($_FILES["file"]["tmp_name"], $dir);
     
     if ($_POST['action'] == "replace")
-    {    	
+    {
       $command = "TRUNCATE TABLE proteins";
       $dbh->query($command);
     }
 
-    $command = "LOAD DATA LOCAL INFILE './upload/{$_FILES["file"]["name"]}' INTO TABLE proteins FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\\r\\n'";
+    $command = "LOAD DATA INFILE '{$dir}' INTO TABLE proteins FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'";
     $stmt = $dbh->prepare($command);
     $stmt->execute();
     if (is_file($dir)) unlink($dir);

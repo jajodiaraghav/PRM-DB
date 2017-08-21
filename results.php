@@ -95,6 +95,21 @@ include_once('partials/header.php');
   		</div>
   		<?php } ?>
     </div>
+    <script>
+    $(window).on('load', function () {
+    	$('img').each(function () {
+        	if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
+            	$(this).attr("src", "http://via.placeholder.com/350x150");
+        	}
+     	});
+
+     	$('.top-peptides').each(function () {
+        	if($.trim($(this).html()) == "") {
+        		$(this).hide();
+        	}
+     	});
+ 	});
+    </script>
     <?php include_once('partials/footer.php'); ?>
 	</body>
 </html>

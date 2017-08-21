@@ -5,7 +5,7 @@
       <div id='fields'>
         <strong>Only CSV or TSV files are supported with the following fields:</strong>
         <p style='font-size:0.7em'>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, dolore eaque minus dolor, quidem sit nesciunt harum culpa quibusdam rem vero illo facilis explicabo perferendis illum natus mollitia quia? Perferendis.
+        	Protein Name, Domain Group, Uniprot ID, Peptide Begin, Peptide End, Pfam Family Name, ELISA_Sequence, Logo, is_validated, No of Logos, Species, HAL Peptides, NGS Peptides, PDB_ID, Type
         </p>
       </div>
       <form id="ul-form" action="upload_file.php" method="POST" enctype="multipart/form-data">
