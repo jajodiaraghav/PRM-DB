@@ -53,7 +53,7 @@ if ($failure)
       <button class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Table "<?=$_GET['submit']?>" was altered successfully.
+      Table "<?=$_GET['submit']?>" was altered successfully
     </div>
   <?php } ?>
   
@@ -65,6 +65,9 @@ if ($failure)
             <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Upload Data</a>
           </li>
           <li role="presentation">
+            <a href="#ppi" aria-controls="ppi" role="tab" data-toggle="tab">Upload PPI Data</a>
+          </li>
+          <li role="presentation">
             <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Upload Files</a>
           </li>
         </ul>
@@ -72,6 +75,9 @@ if ($failure)
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="home">
             <?php include_once('includes/DATA_upload.php') ?>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="ppi">
+            <?php include_once('includes/PPI_upload.php') ?>
           </div>
           <div role="tabpanel" class="tab-pane" id="profile">
             <?php include_once('includes/FILE_upload.php') ?>

@@ -4,11 +4,9 @@
     <div id="panel-content">
       <div id='fields'>
         <strong>Only CSV or TSV files are supported with the following fields:</strong>
-        <p>
-        	ID, Protein Name, Domain Group, Domain Number, Uniprot ID, Domain Begin, Domain End, Domain_Sequence, Number of Logo Peptides, No of Logos, Species, HAL Peptides, NGS Peptides, PDB_ID
-        </p>
+        <p>ID, Protein_A, Protein_B, Score, Type</p>
       </div>
-      <form id="ul-form" action="upload_file.php" method="POST" enctype="multipart/form-data">
+      <form id="ul-form" action="upload_ppi.php" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" id="file">
         <div>
           <label>

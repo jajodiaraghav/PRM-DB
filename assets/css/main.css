@@ -187,3 +187,11 @@ body {
   text-align: center;
   vertical-align: middle !important;
 }
+.alert.alert-dismissible {
+  margin-right: 50px;
+  padding: 15px;
+  font-size: inherit;
+}
+.alert.alert-dismissible button {
+	padding-left: 20px;
+}
