@@ -70,7 +70,7 @@ include_once('partials/header.php');
 			          			<?php } ?>
 			          		</span>
 			          		<a href="https://www.rcsb.org/pdb/protein/<?=$row['Protein_Name']?>">
-			          			<img src="files/3D/<?=$row['Protein_Name']?>.PNG" class="img-thumbnail pwm">
+			          			<img src="files/3D/<?=$row['Protein_Name']?>.PNG" class="img-thumbnail model">
 			          		</a>
 			          		<span class="links downloads">
 			          			<strong>Downloads</strong>
@@ -94,7 +94,7 @@ include_once('partials/header.php');
 					<?php
 						for ($i = 1; $i <= $total_pages; $i++)
 						{ 
-				            echo "<li><a href='/results.php?q={$q}&species={$sp}&group={$gr}&page={$i}'>{$i}</a></li>";
+				            echo "<li><a href='results.php?q={$q}&species={$sp}&group={$gr}&page={$i}'>{$i}</a></li>";
 						};
 					?>
 					</ul>

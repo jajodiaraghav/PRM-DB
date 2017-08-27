@@ -3,10 +3,19 @@ include_once('common.php');
 include_once('partials/header.php');
 ?>
 <div class="container">
-	<div class="row">	
-		<h4 class="text-center">Network Visualization canvas</h4>
+	<div class="row">
+		<h3 class="text-center">Network Visualization canvas</h3>
 		<div class="col-md-12">
 			<div class="cytoscape" id="cytoscape"></div>
+		</div>
+	</div>	
+	<div class="row">
+		<h3 class="text-center">Network Table</h3>
+		<h5 class="text-center">
+			<a href="download.php?gene=<?=$_GET['gene']?>">Download Network as CSV</a>
+		</h5>
+		<div class="col-md-6 col-md-offset-3">
+			<table class="table table-hover"></table>
 		</div>
 	</div>
 </div>
@@ -15,6 +24,7 @@ include_once('partials/header.php');
 <script src="/assets/js/panzoom.js"></script>
 <script src="/assets/js/cola.js"></script>
 <script src="/assets/js/cytoscape-cola.js"></script>
+<script src="/assets/js/datatables.min.js"></script>
 
 <?php include_once('partials/footer.php'); ?>
 <?php
@@ -28,7 +38,7 @@ include_once('partials/header.php');
 
 <script>
 $(function(){
-	var data = <?=$data?>;
+	var data = <?=$data?>;	
 	var hero = "<?=strtoupper($q)?>";	
 	var cy = cytoscape({
 		container: document.getElementById('cytoscape'),
@@ -62,7 +72,9 @@ $(function(){
 	  	]
 	});
 	
-	for(var i = 0; i < 20; i++)
+	maxNodes = (data.length > 100) ? 100 : data.length;
+	
+	for(var i = 0; i < maxNodes; i++)
 	{		
 		cy.add([
 		  { group: "nodes", data: { id: data[i][1] } },
@@ -74,6 +86,17 @@ $(function(){
 	cy.panzoom({});	
 	cy.layout({ name: 'cola', avoidOverlap: true, equidistant: true, maxNodeSpacing: 50, randomize: true});
 	cy.style().selector('node[id = "'+hero+'"]').style({'background-color': 'red'}).update();
+
+	$('.table').DataTable({
+        data: data,
+        columns: [
+        	{ title: "ID" },
+            { title: "Interactor A" },
+            { title: "Interactor B" },
+            { title: "Score" },
+            { title: "Type" }
+        ]
+    });
 });
 </script>
     
