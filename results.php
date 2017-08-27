@@ -74,7 +74,7 @@ include_once('partials/header.php');
 			          		</a>
 			          		<span class="links downloads">
 			          			<strong>Downloads</strong>
-			          			<a href="#">Interactions</a>
+			          			<a href="network.php?gene=<?=$row['Protein_Name']?>">Interactions</a>
 			          			<a href="#">PWM</a>
 			          			<a href="#">Peptide Sequence</a>
 			          			<a href="#">Domain Sequence</a>

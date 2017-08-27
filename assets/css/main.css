@@ -195,3 +195,6 @@ body {
 .alert.alert-dismissible button {
 	padding-left: 20px;
 }
+.cytoscape {
+	height: 1000px;
+}

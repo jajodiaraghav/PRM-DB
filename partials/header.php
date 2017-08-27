@@ -2,6 +2,7 @@
     <title>PRM Database</title>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/panzoom.css" type="text/css" rel="stylesheet">
     <link href="/assets/css/main.css" type="text/css" rel="stylesheet">
 
     <script src="/assets/js/jquery.min.js"></script>
