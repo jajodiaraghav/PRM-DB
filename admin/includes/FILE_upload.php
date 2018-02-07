@@ -6,6 +6,21 @@
     <div id="panel-content">
 
       <form id="fileupload" action="upload_data.php" method="POST" enctype="multipart/form-data">
+
+	<div class="row">
+          <div class="col-md-2 col-md-offset-5">
+            <h5>Select Folder:</h5>
+            <select class="form-control" name="folder">
+              <option value="LOGOS">LOGOS</option>
+              <option value="PWM">PWM</option>
+              <option value="ELISA">ELISA</option>
+              <option value="NGS">NGS</option>
+              <option value="PDB">PDB</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+
         <div class="row text-center fileupload-buttonbar">
           <span class="btn btn-success btn-sm fileinput-button">
               <i class="glyphicon glyphicon-plus"></i>

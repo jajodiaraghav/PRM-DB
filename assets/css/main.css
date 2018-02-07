@@ -63,8 +63,6 @@ body {
 }
 .links {
 	display: inline-grid;
-	border: 1px solid lightgray;
-    font-weight: bold;
 }
 .form-inline .form-control {
 	height: 48px;
@@ -94,18 +92,28 @@ body {
 .jumbotron .list-unstyled {
 	padding-left: 130px;
 }
+.pager-bubble {
+	margin-left: 45%;
+}
 .seq {
 	font-size: x-small;
 	word-break: break-all;
 }
 .list-group-item {
-	height: 210px !important;
+	height: 250px !important;
 	margin-bottom: 30px;
 	border: 2px solid lightgray;
+}
+.list-group-item .col-md-3 {
+	padding-right: 5px;
+	padding-left: 5px;	
 }
 .list-group-item-heading {
 	padding: 5px 0 5px 0;
 	text-align: center;
+}
+.list-group-item .img-thumbnail {
+	border: none;
 }
 .list-group-item .pwm {
 	width: 29%;
@@ -116,18 +124,15 @@ body {
 	height: 150px;
 }
 .list-group-item .top-peptides {
-	width: 20%;
 	padding: 15px 20px;	
     height: 150px;
     position: relative;
-    bottom: 50px;
 }
 .list-group-item .downloads {
-	width: 29%;
-	padding: 22px 20px 26px;
-	position: relative;
-    bottom: 40px;
 	font-size: 14px;
+}
+.list-group-item .structure {
+	max-height: 180px !important;
 }
 
 /* Admin Panel */

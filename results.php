@@ -4,6 +4,11 @@ include_once('partials/header.php');
 ?>
     <div class="container">
     	<div class="row">
+    		<div class="col-md-8 col-md-offset-2">
+    			<?php include_once('partials/search.php'); ?>
+    		</div>
+    	</div>
+    	<div class="row">
     		<div class="col-md-10 col-md-offset-1">
     			<h4><strong>Summary</strong></h4><hr>
 	    		<div class="jumbotron">
@@ -11,6 +16,7 @@ include_once('partials/header.php');
 		        	$q = $_GET['q'];
 		        	$sp = isset($_GET['species']) ? $_GET['species'] : '';
 		        	$gr = isset($_GET['group']) ? $_GET['group'] : '';
+		        	$page = isset($_GET['page']) ? $_GET['page'] : '1';
 					$s = isset($_GET['page']) ? (($_GET['page'] - 1) * 10) : '0';
 
 					$query = "SELECT COUNT(*) FROM proteins WHERE
@@ -22,6 +28,20 @@ include_once('partials/header.php');
 					$total = $stmt->fetch()[0];
 					$total_pages = ceil($total / 10);
 
+					$query = "SELECT COUNT(DISTINCT `Uniprot_ID`) FROM proteins WHERE
+							(`Protein_Name` LIKE ? OR `Domain_Group` LIKE ? OR `Uniprot_ID` LIKE ?)
+							AND `Species` LIKE ? AND `Domain_Group` LIKE ?";
+					$stmt = $dbh->prepare($query);
+					$stmt->execute($param);
+					$total_proteins = $stmt->fetch()[0];
+
+					$query = "SELECT COUNT(DISTINCT `Protein_Name`) FROM proteins WHERE
+							(`Protein_Name` LIKE ? OR `Domain_Group` LIKE ? OR `Uniprot_ID` LIKE ?)
+							AND `Species` LIKE ? AND `Domain_Group` LIKE ?";
+					$stmt = $dbh->prepare($query);
+					$stmt->execute($param);
+					$total_pwms = $stmt->fetch()[0];
+
 					$query = "SELECT * FROM proteins WHERE
 							(`Protein_Name` LIKE ? OR `Domain_Group` LIKE ? OR `Uniprot_ID` LIKE ?)
 							AND `Species` LIKE ? AND `Domain_Group` LIKE ? LIMIT ?, 10";
@@ -30,18 +50,17 @@ include_once('partials/header.php');
 					$stmt->execute($param);					
 				?>
 	    			<h5>Search Terms: <span class="text-uppercase"><?=$q?></span></h5>
+				<h5>Species: <span class="text-uppercase"><?=$sp?></span></h5>
+				<h5>Domain Group: <span class="text-uppercase"><?=$gr?></span></h5>
 		    		<div class="inline">		    			
 		    			<ul class="list-unstyled">
-							<li><h5>Proteins Found: <?=$total?></h5></li>
+							<li><h5>Proteins Found: <?=$total_proteins?></h5></li>
+						</ul>
+						<ul class="list-unstyled">
 							<li><h5>Domains Found: <?=$total?></h5></li>
 						</ul>
 						<ul class="list-unstyled">
-							<li><h5>HAL Found: <?=$total?></h5></li>
-							<li><h5>NGS Peptides Found: <?=$total?></h5></li>
-						</ul>
-						<ul class="list-unstyled">
-							<li><h5>3D Structures Found: <?=$total?></h5></li>
-							<li><h5>PWM Found: <?=$total?></h5></li>
+							<li><h5>PWM Found: <?=$total_pwms?></h5></li>
 						</ul>
 					</div>
 	    		</div>
@@ -52,33 +71,70 @@ include_once('partials/header.php');
 	        	<h4><strong>Search Results</strong></h4><hr>
 	        	<div class="list-group">
 		        	<?php while ($row = $stmt->fetch()) { ?>
+		          		<h5 class="list-group-item-heading">
+		          			<strong>Protein Name: </strong><?=$row['Protein_Name']?> | 
+		          			<strong>Protein Domain Name: </strong><?=$row['Protein_Name'].'_'.$row['Domain_Group'].$row['Domain_Number']?> | 
+		          			<strong>Domain Group: </strong><?=$row['Domain_Group']?> | 
+		          			<strong>Uniprodt ID: </strong><a href="http://www.uniprot.org/uniprot/<?=$row['Uniprot_ID']?>" target="_blank"><?=$row['Uniprot_ID']?></a>
+		          		</h5>
 			          	<div class="list-group-item">
-			          		<h5 class="list-group-item-heading">
-			          			<strong>Protein Name: </strong><?=$row['Protein_Name']?> | 
-			          			<strong>Domain Group: </strong><?=$row['Domain_Group']?> | 
-			          			<strong>Uniprodt ID: </strong><?=$row['Uniprot_ID']?>
-			          		</h5>    
-			          		<img src="files/<?=$row['Protein_Name']?>_Logo.png" class="img-thumbnail pwm">
-			          		<span class="links top-peptides">
-			          			<?php if(is_file("files/{$row['Protein_Name']}_ELISA.txt")) { ?>
-			          			<a href="files/<?=$row['Protein_Name']?>_ELISA.txt">HAL (ELISA Peptides)</a>
-			          			<span class="seq"><?=$row['HAL']?></span>
-			          			<?php } ?>
-			          			<?php if(is_file("files/{$row['Protein_Name']}_SEQ.fa")) { ?>
-			          			<a href="files/<?=$row['Protein_Name']?>_SEQ.fa">Top NGS Peptides</a>
-			          			<span class="seq"><?=$row['NGS']?></span>
-			          			<?php } ?>
-			          		</span>
-			          		<a href="https://www.rcsb.org/pdb/protein/<?=$row['Protein_Name']?>">
-			          			<img src="files/3D/<?=$row['Protein_Name']?>.PNG" class="img-thumbnail model">
-			          		</a>
-			          		<span class="links downloads">
-			          			<strong>Downloads</strong>
-			          			<a href="network.php?gene=<?=$row['Protein_Name']?>">Interactions</a>
-			          			<a href="#">PWM</a>
-			          			<a href="#">Peptide Sequence</a>
-			          			<a href="#">Domain Sequence</a>
-			          		</span>
+			          		<div class="col-md-3">
+			          			<h5 style="font-weight:bold">Sequence logo</h5>
+				          		<?php if ($row['No_of_Logos'] > 1) { ?>
+									<img src="files/Logos/<?=$row['Primary_ID']?>_1.png" class="img-thumbnail logo" data-element="<?=$row['Primary_ID']?>">
+									<span class="pager-bubble">
+										<?php for($i=1; $i<=$row['No_of_Logos']; $i++) { ?>
+											<i class="fa fa-lg fa-circle" data-count="<?=$i?>"></i>
+										<?php } ?>
+									</span>
+				          		<?php } else { ?>
+				          			<img src="files/Logos/<?=$row['Primary_ID']?>.png" class="img-thumbnail logo">
+				          		<?php } ?>
+				          	</div>
+				          	<div class="col-md-3">
+				          		<h5 style="font-weight:bold">Top Peptides Binders</h5>
+				          		<span class="links top-peptides">
+				          			<strong>Top ELISA-based peptide binders</strong>
+				          			<span class="seq">
+				          				<?php
+				          				if(trim($row['HAL']) != '' && $row['HAL'] != 'NA') echo str_replace(",",", ",$row['HAL']);
+				          				else echo '-';
+				          				?>
+				          			</span>			          			
+				          			<strong>Most abundant NGS peptides</strong>
+				          			<span class="seq">
+				          				<?php
+				          				if(trim($row['NGS']) != '' && $row['NGS'] != 'NA') echo str_replace(",",", ",$row['NGS']);
+				          				else echo '-';
+				          				?>
+				          			</span>
+				          		</span>
+				          	</div>
+				          	<div class="col-md-3">
+				          		<h5 style="font-weight:bold">Closest Complex Structure</h5>
+				          		<a href="https://www.rcsb.org/pdb/explore/explore.do?structureId=<?=$row['PDB_ID']?>" target="_blank">
+				          			<img src="https://cdn.rcsb.org/images/rutgers/<?=substr($row['PDB_ID'],1,2)?>/<?=$row['PDB_ID']?>/<?=$row['PDB_ID']?>.pdb1-500.jpg" class="img-thumbnail structure">
+				          		</a>
+				          	</div>
+				          	<div class="col-md-3">
+				          		<h5 style="font-weight:bold">Downloads</h5>
+				          		<span class="links downloads">
+				          			<a href="network.php?gene=<?=$row['Protein_Name']?>">Predicted Human Interactions</a>
+				          			<span>
+				          			<?php if ($row['No_of_Logos'] > 1) { ?>
+				          				Position Weight Matrix
+				          				<?php for($i=1; $i<=$row['No_of_Logos']; $i++) { ?>
+											<a href="files/PWM/<?=$row['Primary_ID']?>_<?=$i?>" target="_blank"><?=$i?></a>
+										<?php } ?>
+				          			<?php } else { ?>
+				          				<a href="files/PWM/<?=$row['Primary_ID']?>" target="_blank">Position Weight Matrix</a>
+				          			<?php } ?>
+				          			</span>
+				          			<a href="files/ELISA/<?=$row['Primary_ID']?>.fa" target="_blank">ELISA-based peptide binders</a>
+				          			<a href="files/NGS/<?=$row['Primary_ID']?>.fa" target="_blank">NGS peptides</a>
+				          			<a href="files/PDB/<?=$row['Primary_ID']?>" target="_blank">Structural Similarities</a>
+				          		</span>
+				          	</div>
 			          	</div>
 			        <?php } if ($total == 0) { ?>
 			        	<div class="list-group-item text-center">Nothing Found!</div>
@@ -91,12 +147,16 @@ include_once('partials/header.php');
 	        <div class="col-md-4 col-md-offset-4">
 	        	<nav aria-label="...">
 					<ul class="pager">
-					<?php
-						for ($i = 1; $i <= $total_pages; $i++)
-						{ 
-				            echo "<li><a href='results.php?q={$q}&species={$sp}&group={$gr}&page={$i}'>{$i}</a></li>";
-						};
-					?>
+						<?php $link = "results.php?q={$q}&species={$sp}&group={$gr}&page="; ?>
+						<li><a href='<?=$link.'1'?>'>First</a></li>
+						<?php if(($page) > 1) { ?>
+							<li><a href='<?=$link.strval($page - 1)?>'>Previous</a></li>
+						<?php } ?>
+						<li>Page <?=$page?> of <?=$total_pages?></li>
+						<?php if(($page) < $total_pages) { ?>
+							<li><a href='<?=$link.strval($page + 1)?>'>Next</a></li>
+						<?php } ?>
+						<li><a href='<?=$link.$total_pages?>'>Last</a></li>
 					</ul>
 				</nav>
 	        </div>
@@ -105,11 +165,19 @@ include_once('partials/header.php');
     </div>
     <script>
     $(window).on('load', function () {
-    	$('img').each(function () {
+    	$('.logo').each(function () {
         	if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
-            	$(this).attr("src", "http://via.placeholder.com/350x150");
+            	$(this).attr("src", "http://via.placeholder.com/800x300/fff/000?text=NO+LOGO+AVAILABLE");
+		$(this).next().hide();
         	}
      	});
+
+	$('.structure').each(function () {
+                if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
+                $(this).attr("src", "http://via.placeholder.com/800x300/fff/000?text=NO+STRUCTURE+AVAILABLE");
+                $(this).parent().removeAttr("href"); 
+		}
+        });	
 
      	$('.top-peptides').each(function () {
         	if($.trim($(this).html()) == "") {
@@ -117,6 +185,16 @@ include_once('partials/header.php');
         	}
      	});
  	});
+
+ 	$(document).ready(function() {
+	    $('.fa-circle').on('click', function(){
+	    	$(this).parent().children().removeClass('fa-circle-thin').addClass('fa-circle');
+	    	$(this).removeClass('fa-circle').addClass('fa-circle-thin');
+	    	var count = $(this).data('count');
+	    	var el = $(this).parent().prev().data('element');
+	    	$(this).parent().prev().attr('src', 'files/Logos/' + el + '_' + count + '.png');
+	    });
+	});
     </script>
     <?php include_once('partials/footer.php'); ?>
 	</body>

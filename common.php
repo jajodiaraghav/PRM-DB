@@ -6,7 +6,7 @@ $settings = array(
 					'db_host' 		=> 'localhost',
 					'db_name' 		=> 'prmhal',
 					'db_user' 		=> 'root',
-					'db_password' 	=> '',
+					'db_password' 	=> '8582liap@cs2',
 				);
 
 require('partials/PDOext.class.php');

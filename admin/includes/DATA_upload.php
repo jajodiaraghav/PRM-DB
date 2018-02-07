@@ -5,7 +5,7 @@
       <div id='fields'>
         <strong>Only CSV or TSV files are supported with the following fields:</strong>
         <p>
-        	ID, Protein Name, Domain Group, Domain Number, Uniprot ID, Domain Begin, Domain End, Domain_Sequence, Number of Logo Peptides, No of Logos, Species, HAL Peptides, NGS Peptides, PDB_ID
+        	Primary ID, ID, Protein Name, Domain Group, Domain Number, Uniprot ID, Domain Begin, Domain End, Domain_Sequence, Number of Logo Peptides, No of Logos, Species, HAL Peptides, NGS Peptides, PDB_ID
         </p>
       </div>
       <form id="ul-form" action="upload_file.php" method="POST" enctype="multipart/form-data">

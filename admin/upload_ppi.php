@@ -21,7 +21,7 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == 'admin')
       $dbh->query($command);
     }
 
-    $command = "LOAD DATA INFILE '{$dir}' INTO TABLE PPI FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'";
+    $command = "LOAD DATA INFILE '{$dir}' IGNORE INTO TABLE PPI FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'";
     $stmt = $dbh->prepare($command);
     $stmt->execute();
     if (is_file($dir)) unlink($dir);

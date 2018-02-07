@@ -20,7 +20,7 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == 'admin')
 			);
 			$returnLink = array("files" => [$temp]);
 
-			$dir = __DIR__ . "/../files/" . $_FILES["files"]["name"][$i];
+			$dir = __DIR__ . "/../files/" . $_POST["folder"] . "/" . $_FILES["files"]["name"][$i];
 			move_uploaded_file($_FILES["files"]["tmp_name"][$i], $dir);
 			die(json_encode($returnLink));
 		}
