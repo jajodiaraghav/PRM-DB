@@ -42,6 +42,13 @@ include_once('partials/header.php');
 					$stmt->execute($param);
 					$total_pwms = $stmt->fetch()[0];
 
+					$query = "SELECT COUNT(DISTINCT `Domain_Group`) FROM proteins WHERE
+							(`Protein_Name` LIKE ? OR `Domain_Group` LIKE ? OR `Uniprot_ID` LIKE ?)
+							AND `Species` LIKE ? AND `Domain_Group` LIKE ?";
+					$stmt = $dbh->prepare($query);
+					$stmt->execute($param);
+					$total_families = $stmt->fetch()[0];
+
 					$query = "SELECT * FROM proteins WHERE
 							(`Protein_Name` LIKE ? OR `Domain_Group` LIKE ? OR `Uniprot_ID` LIKE ?)
 							AND `Species` LIKE ? AND `Domain_Group` LIKE ? LIMIT ?, 10";
@@ -50,8 +57,14 @@ include_once('partials/header.php');
 					$stmt->execute($param);					
 				?>
 	    			<h5>Search Terms: <span class="text-uppercase"><?=$q?></span></h5>
-				<h5>Species: <span class="text-uppercase"><?=$sp?></span></h5>
-				<h5>Domain Group: <span class="text-uppercase"><?=$gr?></span></h5>
+					<h5>Species: <span class="text-uppercase"><?=$sp?></span></h5>
+					<h5>Domain Group: <span class="text-uppercase">
+						<?php if(empty($gr)) { ?>
+							<?=$total_families.' found'?>
+						<?php } else { ?>
+							<?=$gr?>
+						<?php } ?>
+					</span></h5>
 		    		<div class="inline">		    			
 		    			<ul class="list-unstyled">
 							<li><h5>Proteins Found: <?=$total_proteins?></h5></li>
@@ -69,13 +82,35 @@ include_once('partials/header.php');
     	<div class="row">    		
 	        <div class="col-md-10 col-md-offset-1">
 	        	<h4><strong>Search Results</strong></h4><hr>
+
+				<?php if ($total_pages > 1) { ?>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<nav aria-label="...">
+								<ul class="pager">
+									<?php $link = "results.php?q={$q}&species={$sp}&group={$gr}&page="; ?>
+									<li><a href='<?=$link.'1'?>'>First</a></li>
+									<?php if(($page) > 1) { ?>
+										<li><a href='<?=$link.strval($page - 1)?>'>Previous</a></li>
+									<?php } ?>
+									<li>Page <?=$page?> of <?=$total_pages?></li>
+									<?php if(($page) < $total_pages) { ?>
+										<li><a href='<?=$link.strval($page + 1)?>'>Next</a></li>
+									<?php } ?>
+									<li><a href='<?=$link.$total_pages?>'>Last</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				<?php } ?>
+
 	        	<div class="list-group">
 		        	<?php while ($row = $stmt->fetch()) { ?>
 		          		<h5 class="list-group-item-heading">
 		          			<strong>Protein Name: </strong><?=$row['Protein_Name']?> | 
 		          			<strong>Protein Domain Name: </strong><?=$row['Protein_Name'].'_'.$row['Domain_Group'].$row['Domain_Number']?> | 
 		          			<strong>Domain Group: </strong><?=$row['Domain_Group']?> | 
-		          			<strong>Uniprodt ID: </strong><a href="http://www.uniprot.org/uniprot/<?=$row['Uniprot_ID']?>" target="_blank"><?=$row['Uniprot_ID']?></a>
+		          			<strong>UNIPROT ID: </strong><a href="http://www.uniprot.org/uniprot/<?=$row['Uniprot_ID']?>" target="_blank"><?=$row['Uniprot_ID']?></a>
 		          		</h5>
 			          	<div class="list-group-item">
 			          		<div class="col-md-3">
@@ -124,15 +159,28 @@ include_once('partials/header.php');
 				          			<?php if ($row['No_of_Logos'] > 1) { ?>
 				          				Position Weight Matrix
 				          				<?php for($i=1; $i<=$row['No_of_Logos']; $i++) { ?>
-											<a href="files/PWM/<?=$row['Primary_ID']?>_<?=$i?>" target="_blank"><?=$i?></a>
+											<a href="files/PWM/<?=$row['Primary_ID']?>_<?=$i?>.dat" target="_blank"><?=$i?></a>
 										<?php } ?>
 				          			<?php } else { ?>
-				          				<a href="files/PWM/<?=$row['Primary_ID']?>" target="_blank">Position Weight Matrix</a>
+				          				<a href="files/PWM/<?=$row['Primary_ID']?>.dat" target="_blank">Position Weight Matrix</a>
 				          			<?php } ?>
 				          			</span>
-				          			<a href="files/ELISA/<?=$row['Primary_ID']?>.fa" target="_blank">ELISA-based peptide binders</a>
+
+									<?php if(file_exists('files/ELISA/'.$row['Primary_ID'].'.fa')) { ?>
+				          				<a href="files/ELISA/<?=$row['Primary_ID']?>.fa" target="_blank">ELISA-based peptide binders</a>
+									<?php } else { ?>
+										ELISA-based peptide binders
+										<?php
+											$i = 1;
+											while(true) {
+												echo "<a href='files/PWM/".$row['Primary_ID']."_".$i."' target='_blank'>.$i.</a>";
+												$i = $i + 1;
+												if(!file_exists("files/PWM/".$row['Primary_ID']."_".$i.".fa")) break;
+											}
+										?>
+									<?php } ?>
 				          			<a href="files/NGS/<?=$row['Primary_ID']?>.fa" target="_blank">NGS peptides</a>
-				          			<a href="files/PDB/<?=$row['Primary_ID']?>" target="_blank">Structural Similarities</a>
+				          			<a href="files/PDB/<?=$row['Primary_ID']?>.txt" target="_blank">Structural Similarities</a>
 				          		</span>
 				          	</div>
 			          	</div>

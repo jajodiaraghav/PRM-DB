@@ -208,3 +208,6 @@ body {
 	height: 1000px;
 	margin-bottom: 100px;
 }
+.pager {
+	font-size: 20px !important;
+}
