@@ -169,15 +169,17 @@ include_once('partials/header.php');
 									<?php if(file_exists('files/ELISA/'.$row['Primary_ID'].'.fa')) { ?>
 				          				<a href="files/ELISA/<?=$row['Primary_ID']?>.fa" target="_blank">ELISA-based peptide binders</a>
 									<?php } else { ?>
+									<span>
 										ELISA-based peptide binders
 										<?php
 											$i = 1;
 											while(true) {
-												echo "<a href='files/PWM/".$row['Primary_ID']."_".$i."' target='_blank'>.$i.</a>";
+												echo "<a href='files/ELISA/".$row['Primary_ID']."_".$i.".fa' target='_blank' style='padding: 0px 2px'>".$i."</a>";
 												$i = $i + 1;
-												if(!file_exists("files/PWM/".$row['Primary_ID']."_".$i.".fa")) break;
+												if(!file_exists("files/ELISA/".$row['Primary_ID']."_".$i.".fa")) break;
 											}
 										?>
+									</span>
 									<?php } ?>
 				          			<a href="files/NGS/<?=$row['Primary_ID']?>.fa" target="_blank">NGS peptides</a>
 				          			<a href="files/PDB/<?=$row['Primary_ID']?>.txt" target="_blank">Structural Similarities</a>
