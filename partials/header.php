@@ -31,6 +31,7 @@
             <li><a href="/" role="button"><h4><i class="fa fa-home"></i> Home</h4></a></li>            
             <li><a href="/about.php" role="button"><h4><i class="fa fa-question"></i> About</h4></a></li>
             <li><a href="/contact.php" role="button"><h4><i class="fa fa-envelope"></i> Contact</h4></a></li>
+            <li><a href="/download.php" role="button"><h4><i class="fa fa-download"></i> Download</h4></a></li>
           </ul>
         </div>
       </div>

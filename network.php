@@ -12,7 +12,7 @@ include_once('partials/header.php');
 	<div class="row">
 		<h3 class="text-center">Network Table</h3>
 		<h5 class="text-center">
-			<a href="download.php?gene=<?=$_GET['gene']?>">Download Network as CSV</a>
+			<a href="download_network.php?gene=<?=$_GET['gene']?>">Download Network as CSV</a>
 		</h5>
 		<div class="col-md-12">
 			<table class="table table-hover"></table>

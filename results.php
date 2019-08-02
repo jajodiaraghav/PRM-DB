@@ -133,14 +133,14 @@ include_once('partials/header.php');
 				          			<span class="seq">
 				          				<?php
 				          				if(trim($row['HAL']) != '' && $row['HAL'] != 'NA') echo str_replace(",",", ",$row['HAL']);
-				          				else echo '-';
+				          				else echo '#N/A';
 				          				?>
 				          			</span>			          			
 				          			<strong>Most abundant NGS peptides</strong>
 				          			<span class="seq">
 				          				<?php
 				          				if(trim($row['NGS']) != '' && $row['NGS'] != 'NA') echo str_replace(",",", ",$row['NGS']);
-				          				else echo '-';
+				          				else echo '#N/A';
 				          				?>
 				          			</span>
 				          		</span>
@@ -155,20 +155,26 @@ include_once('partials/header.php');
 				          		<h5 style="font-weight:bold">Downloads</h5>
 				          		<span class="links downloads">
 				          			<a href="network.php?gene=<?=$row['Protein_Name']?>">Predicted Human Interactions</a>
-				          			<span>
-				          			<?php if ($row['No_of_Logos'] > 1) { ?>
+
+				          			<?php if (file_exists('files/PWM/'.$row['Primary_ID'].'.dat')) { ?>
+										<a href="files/PWM/<?=$row['Primary_ID']?>.dat" target="_blank">Position Weight Matrix</a>
+									<?php } else if(file_exists('files/PWM/'.$row['Primary_ID'].'_1.dat')) { ?>
+									<span>
 				          				Position Weight Matrix
-				          				<?php for($i=1; $i<=$row['No_of_Logos']; $i++) { ?>
-											<a href="files/PWM/<?=$row['Primary_ID']?>_<?=$i?>.dat" target="_blank"><?=$i?></a>
-										<?php } ?>
-				          			<?php } else { ?>
-				          				<a href="files/PWM/<?=$row['Primary_ID']?>.dat" target="_blank">Position Weight Matrix</a>
+										<?php
+											$i = 1;
+											while(true) {
+												echo "<a href='files/PWM/".$row['Primary_ID']."_".$i.".dat' target='_blank' style='padding: 0px 2px'>".$i."</a>";
+												$i = $i + 1;
+												if(!file_exists("files/PWM/".$row['Primary_ID']."_".$i.".dat")) break;
+											}
+										?>
+									</span>
 				          			<?php } ?>
-				          			</span>
 
 									<?php if(file_exists('files/ELISA/'.$row['Primary_ID'].'.fa')) { ?>
 				          				<a href="files/ELISA/<?=$row['Primary_ID']?>.fa" target="_blank">ELISA-based peptide binders</a>
-									<?php } else { ?>
+									<?php } else if (file_exists('files/ELISA/'.$row['Primary_ID'].'_1.fa')) { ?>
 									<span>
 										ELISA-based peptide binders
 										<?php
@@ -181,8 +187,14 @@ include_once('partials/header.php');
 										?>
 									</span>
 									<?php } ?>
-				          			<a href="files/NGS/<?=$row['Primary_ID']?>.fa" target="_blank">NGS peptides</a>
-				          			<a href="files/PDB/<?=$row['Primary_ID']?>.txt" target="_blank">Structural Similarities</a>
+
+									<?php if(file_exists('files/NGS/'.$row['Primary_ID'].'.fa')) { ?>
+				          				<a href="files/NGS/<?=$row['Primary_ID']?>.fa" target="_blank">NGS peptides</a>
+									<?php } ?>
+
+									<?php if(file_exists('files/PDB/'.$row['Primary_ID'].'.txt')) { ?>
+				          				<a href="files/PDB/<?=$row['Primary_ID']?>.txt" target="_blank">Structural Similarities</a>
+									<?php } ?>
 				          		</span>
 				          	</div>
 			          	</div>
