@@ -107,9 +107,9 @@ include_once('partials/header.php');
 	        	<div class="list-group">
 		        	<?php while ($row = $stmt->fetch()) { ?>
 		          		<h5 class="list-group-item-heading">
-		          			<strong>Protein Name: </strong><?=$row['Protein_Name']?> | 
-		          			<strong>Protein Domain Name: </strong><?=$row['Protein_Name'].'_'.$row['Domain_Group'].$row['Domain_Number']?> | 
-		          			<strong>Domain Group: </strong><?=$row['Domain_Group']?> | 
+		          			<strong>PRM Definition: </strong><?=$row['Protein_Name'].' '.$row['Domain_Begin'].'-'.$row['Domain_End']?> | 
+		          			<!-- <strong>Protein Domain Name: </strong><?=$row['Protein_Name'].'_'.$row['Domain_Group'].$row['Domain_Number']?> |  -->
+		          			<strong>Family: </strong><?=$row['Domain_Group']?> | 
 		          			<strong>UNIPROT ID: </strong><a href="http://www.uniprot.org/uniprot/<?=$row['Uniprot_ID']?>" target="_blank"><?=$row['Uniprot_ID']?></a>
 		          		</h5>
 			          	<div class="list-group-item">
