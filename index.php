@@ -12,11 +12,20 @@ include_once('partials/header.php');
 			                    COUNT(DISTINCT `Uniprot_ID`) AS C FROM proteins";
 			          	$stmt = $dbh->prepare($query);
 			          	$stmt->execute();
-			          	$ar = $stmt->fetch();
+						$ar = $stmt->fetch();
+						
+						
+						$query = "SELECT DISTINCT `Domain_Group` FROM proteins";
+			          	$stmt = $dbh->prepare($query);
+						$stmt->execute();
+						$all_families = [];
+			          	while ($row = $stmt->fetch()) {
+							$all_families = array_merge($all_families, explode('+', $row['Domain_Group']));
+						}
 			        ?>
 	            	<h4 class="text-primary">
 	            		<strong>
-	            			PRM database contains <?=$ar['A']?> domains from <?=$ar['B']?> domain groups and <?=$ar['C']?> proteins.
+	            			PRM database contains <?=$ar['A']?> domains from <?=count($all_families)?> PRM families and <?=$ar['C']?> proteins.
 	            		</strong>
 	            	</h4>
 	          	</div>

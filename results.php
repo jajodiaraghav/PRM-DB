@@ -56,30 +56,30 @@ include_once('partials/header.php');
 					$param = array("%$q%", "%$q%", "%$q%", "%$sp%", "%$gr%", "$s");
 					$stmt->execute($param);					
 				?>
-	    			<h5>Search Terms: <span class="text-uppercase"><?=$q?></span></h5>
-					<h5>Species: <span class="text-uppercase"><?=$sp?></span></h5>
-					<h5>Domain Group: <span class="text-uppercase">
-						<?php if(empty($gr)) { ?>
-							<?=$total_families.' found'?>
-						<?php } else { ?>
-							<?=$gr?>
-						<?php } ?>
-					</span></h5>
-		    		<div class="inline">		    			
-		    			<ul class="list-unstyled">
-							<li><h5>Proteins Found: <?=$total_proteins?></h5></li>
-						</ul>
-						<ul class="list-unstyled">
-							<li><h5>Domains Found: <?=$total?></h5></li>
-						</ul>
-						<ul class="list-unstyled">
-							<li><h5>PWM Found: <?=$total_pwms?></h5></li>
-						</ul>
-					</div>
+					<table class="table table-condensed">
+						<tbody>
+							<tr>
+								<td style="border: none;"><h5>Search Terms: <span class="text-uppercase"><?=$q?></span></h5></td>
+								<td style="border: none;"><h5>Species: <span class="text-uppercase"><?=$sp?></span></h5></td>
+								<td style="border: none;"><h5>PRM Family: <span class="text-uppercase">
+									<?php if(empty($gr)) { ?>
+										<?=$total_families.' found'?>
+									<?php } else { ?>
+										<?=$gr?>
+									<?php } ?>
+								</span></h5></td>
+							</tr>
+							<tr>
+								<td style="border: none;"><h5>Proteins Found: <?=$total_proteins?></h5></td>
+								<td style="border: none;"><h5>Domains Found: <?=$total?></h5></td>
+								<td style="border: none;"><h5>PWM Found: <?=$total_pwms?></h5></td>
+							</tr>
+						<tbody>
+					</table>
 	    		</div>
     		</div>
     	</div>
-    	<div class="row">    		
+    	<div class="row">
 	        <div class="col-md-10 col-md-offset-1">
 	        	<h4><strong>Search Results</strong></h4><hr>
 
@@ -135,7 +135,7 @@ include_once('partials/header.php');
 				          				if(trim($row['HAL']) != '' && $row['HAL'] != 'NA') echo str_replace(",",", ",$row['HAL']);
 				          				else echo '#N/A';
 				          				?>
-				          			</span>			          			
+				          			</span>
 				          			<strong>Most abundant NGS peptides</strong>
 				          			<span class="seq">
 				          				<?php
