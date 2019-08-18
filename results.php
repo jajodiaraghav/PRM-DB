@@ -115,16 +115,23 @@ include_once('partials/header.php');
 			          	<div class="list-group-item">
 			          		<div class="col-md-3">
 			          			<h5 style="font-weight:bold">Sequence logo</h5>
-				          		<?php if ($row['No_of_Logos'] > 1) { ?>
+								<?php if(file_exists('files/Logos/'.$row['Primary_ID'].'_1.png')) { ?>
 									<img src="files/Logos/<?=$row['Primary_ID']?>_1.png" class="img-thumbnail logo" data-element="<?=$row['Primary_ID']?>">
+									<?php
+										$i = 1;
+										while(true) {
+											$i = $i + 1;
+											if(!file_exists("files/Logos/".$row['Primary_ID']."_".$i.".png")) break;
+										}
+									?>
 									<span class="pager-bubble">
-										<?php for($i=1; $i<=$row['No_of_Logos']; $i++) { ?>
-											<i class="fa fa-lg fa-circle" data-count="<?=$i?>"></i>
+										<?php for($j=1; $j<$i; $j++) { ?>
+											<i class="fa fa-lg fa-circle" data-count="<?=$j?>"></i>
 										<?php } ?>
 									</span>
-				          		<?php } else { ?>
-				          			<img src="files/Logos/<?=$row['Primary_ID']?>.png" class="img-thumbnail logo">
-				          		<?php } ?>
+								<?php } else { ?>
+									<img src="files/Logos/<?=$row['Primary_ID']?>.png" class="img-thumbnail logo">
+								<?php } ?>
 				          	</div>
 				          	<div class="col-md-3">
 				          		<h5 style="font-weight:bold">Top Peptides Binders</h5>

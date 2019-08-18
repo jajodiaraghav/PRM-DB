@@ -36,6 +36,7 @@
 				while ($row = $stmt->fetch()) {
 					$all_families = array_merge($all_families, explode('+', $row['Domain_Group']));
 				}
+				$all_families = array_unique($all_families);
 				for($i = 0; $i < count($all_families); $i++) {
 					$item = $all_families[$i];
 					if (trim($item) !== '') {
