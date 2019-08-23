@@ -38,7 +38,7 @@ include_once('partials/header.php');
 	        	<?php include_once('partials/search.php'); ?>
 	        	<p>
 	            	<h4><strong>Load Examples:</strong></h4>
-	            	<h4>Protein Name: <a class="example">GRAP2</a> | <a class="example">SPSB2</a></h4>
+	            	<h4>Protein Name: <a class="example">VASP</a> | <a class="example">SPSB2</a></h4>
 	            	<h4>Domain Group: <a class="example">SH3</a> | <a class="example">IRS</a></h4>
 	            	<h4>Uniprot ID: <a class="example">O75791</a> | <a class="example">Q99619</a></h4>
 	        	</p>
