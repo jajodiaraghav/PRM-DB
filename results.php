@@ -161,7 +161,7 @@ include_once('partials/header.php');
 				          	<div class="col-md-3">
 				          		<h5 style="font-weight:bold">Downloads</h5>
 				          		<span class="links downloads">
-				          			<a href="network.php?gene=<?=$row['Protein_Name']?>">Predicted Human Interactions</a>
+				          			<a href="network.php?gene=<?=$row['Protein_Name']?>">PWM pattern matches</a>
 
 				          			<?php if (file_exists('files/PWM/'.$row['Primary_ID'].'.dat')) { ?>
 										<a href="files/PWM/<?=$row['Primary_ID']?>.dat" target="_blank">Position Weight Matrix</a>
