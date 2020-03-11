@@ -18,6 +18,11 @@ include_once('partials/header.php');
 			<table class="table table-hover"></table>
 		</div>
 	</div>
+	<div class="row">
+		<h5>
+			<a href="assets/PRM_PPI_supplementary.pdf">(*) The score is the sum of log-odds scores of amino acid Si at position j in the PWM</a>
+		</h5>
+	</div>
 </div>
 
 <script src="assets/js/cytoscape.min.js"></script>
@@ -55,13 +60,13 @@ $(function(){
 	// 	        	'height': 100,
 	// 	        	'font-size': 36,
 	// 	        	'text-valign': 'center',
- //                    'color': 'white',
- //                    'text-outline-width': 5,
- //                    'padding-top': '10px',
- //                    'padding-left': '10px',
- //                    'padding-bottom': '10px',
- //                    'padding-right': '10px',
- //                    'text-align': 'center',
+ 	//              'color': 'white',
+ 	//              'text-outline-width': 5,
+ 	//              'padding-top': '10px',
+ 	//              'padding-left': '10px',
+ 	//              'padding-bottom': '10px',
+ 	//              'padding-right': '10px',
+ 	//              'text-align': 'center',
 	// 	      	}
 	// 	    },
 	// 	    {
@@ -101,7 +106,7 @@ $(function(){
             { title: "Peptide Sequence" },
             { title: "Start" },
             { title: "End" },
-            { title: "Score" }
+            { title: "Score *" }
         ]
     });
 });
