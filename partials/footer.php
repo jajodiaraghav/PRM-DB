@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="row text-center">
+	<div class="row text-center" style="margin-top:50px">
 		<div class="col-md-12">
 			<a href="http://baderlab.org/">
 				<img src="/assets/images/footer_logo.png" height="100px" />

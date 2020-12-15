@@ -32,7 +32,7 @@ include_once('partials/header.php');
 	          	</div>
 	        </div>
       	</div>
-    	<div class="row search">
+    	<div class="row">
 	        <div class="col-md-8 col-md-offset-2">
 			<h4>Search for a domain or protein by name, all domains from a given species, all members of a domain family, or search for combinations of these criteria.</h4>	
 	        	<?php include_once('partials/search.php'); ?>
@@ -44,6 +44,15 @@ include_once('partials/header.php');
 	        	</p>
 	        </div>
   	  	</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h4>
+					<u>Please cite:</u>
+					<p>Teyra J. et al, Large-scale survey and database of high affinity ligands for peptide recognition modules, Molecular Systems Biology (2020) 16:e9310</p>
+					<p>DOI: <a target="_blank" href="https://doi.org/10.15252/msb.20199310">10.15252/msb.20199310</a></p>
+				</h4>
+			</div>
+		</div>
     </div>
     <?php include_once('partials/footer.php'); ?>
     <script>
